@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: perfume_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: perfume_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: perfume_api
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/perfume_commerce
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+      - redis
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: perfume_web
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: perfume_admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  mongodb_data:
+  redis_data:

@@ -1,0 +1,11 @@
+{
+  "name": "@perfume/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    "./constants": "./src/constants.js",
+    "./permissions": "./src/permissions.js",
+    "./format": "./src/format.js"
+  }
+}
