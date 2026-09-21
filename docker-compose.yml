@@ -24,8 +24,8 @@ services:
 
   api:
     build:
-      context: .
-      dockerfile: apps/api/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: perfume_api
     ports:
       - "5000:5000"
@@ -39,8 +39,8 @@ services:
 
   web:
     build:
-      context: .
-      dockerfile: apps/web/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: perfume_web
     ports:
       - "80:80"
@@ -49,8 +49,8 @@ services:
 
   admin:
     build:
-      context: .
-      dockerfile: apps/admin/Dockerfile
+      context: ./admin
+      dockerfile: Dockerfile
     container_name: perfume_admin
     ports:
       - "8080:80"

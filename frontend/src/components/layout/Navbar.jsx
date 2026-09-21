@@ -3,7 +3,7 @@ import { ShoppingBag, Search, Menu, User } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCart } from '../../store/slices/cartSlice';
 
-export default function Navbar() {
+export default function Navbar({ onLoginClick }) {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
 
@@ -42,7 +42,10 @@ export default function Navbar() {
             <button className="text-[var(--ink-900)] hover:text-[var(--maroon-700)] hidden sm:block p-2">
               <Search size={20} />
             </button>
-            <button className="text-[var(--ink-900)] hover:text-[var(--maroon-700)] p-2">
+            <button 
+              className="text-[var(--ink-900)] hover:text-[var(--maroon-700)] p-2"
+              onClick={onLoginClick}
+            >
               <User size={20} />
             </button>
             <button 
