@@ -1,16 +1,26 @@
-# React + Vite
+# Customer Storefront - AdilQadri E-Commerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The frontend is a blazing fast React application built with Vite, Tailwind CSS, and Redux Toolkit. It serves as the primary touchpoint for customers shopping for premium attars and perfumes.
 
-Currently, two official plugins are available:
+## Features
+- **Redux Toolkit**: Global state management for Authentication (`authSlice`) and Shopping Cart (`cartSlice`).
+- **Tailwind CSS**: Utility-first styling utilizing a custom design token system configured in `tailwind.config.js` to match the brand's exact color palette (Maroon, Gold, Cream).
+- **Radix UI**: Headless accessible components used for complex UI elements like the Cart Drawer (`Dialog`), Login Modal, and Sorting Selectors (`DropdownMenu`).
+- **Axios Interceptors**: Automatically injects JWT Bearer tokens into API requests and globally handles 401 Unauthorized responses.
+- **Responsive Layout**: Fully optimized for mobile and desktop screens.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Directory Structure
+- `src/components/`: Reusable UI components (Layout, Auth, Cart).
+- `src/pages/`: Route-level components (Home, Collection, Product).
+- `src/store/`: Redux configuration and state slices.
+- `src/utils/`: Helper functions and API instances.
+- `src/styles/`: Global CSS and design tokens.
 
-## React Compiler
+## Running Locally
+Ensure the Backend API is running on Port 5000 first, then:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev
+```
+The application will be available at `http://localhost:5173`.

@@ -1,52 +1,82 @@
-# AdilQadri Perfume E-Commerce
+# AdilQadri Perfume E-Commerce Platform
 
-This repository contains the complete MERN stack architecture for the AdilQadri Perfume E-Commerce platform, split into three independent directories:
+A complete, full-stack MERN (MongoDB, Express, React, Node.js) e-commerce platform built specifically for a premium perfume and attar storefront.
 
-- `backend/`: Node.js, Express, Mongoose API
-- `frontend/`: React, Vite, Tailwind CSS Customer Storefront
-- `admin/`: React, Vite, Tailwind CSS Admin Dashboard
+## 🏗 Architecture
 
-## Running Locally (Development)
+The platform is split into three independent applications to ensure scalability, clean separation of concerns, and independent deployment cycles:
 
-### 1. Start Infrastructure (Optional if using MongoDB Atlas)
-If you want to use a local Redis instance (highly recommended for rate-limiting):
-```bash
-docker compose up -d redis
-```
-*(Note: Your backend `.env` is currently configured to connect to your remote MongoDB Atlas cluster).*
+1. **`backend/`** (Node.js, Express, Mongoose)
+   - Serves as the central REST API.
+   - Handles data persistence, authentication (JWT + OTP), Role-Based Access Control (RBAC), and Razorpay payment integration.
+   - Connects to MongoDB Atlas and Redis (for rate limiting).
 
-### 2. Start the Backend
-Open a new terminal and run:
+2. **`frontend/`** (React 18, Vite, Tailwind CSS, Redux Toolkit)
+   - The customer-facing storefront.
+   - Features responsive design, complex product filtering via faceted search, a sliding cart drawer, and checkout flows.
+   - Utilizes Radix UI primitives for accessible dropdowns and modals.
+
+3. **`admin/`** (React 18, Vite, Tailwind CSS)
+   - The internal ERP/Admin dashboard.
+   - Used by store managers to manage inventory, products, orders, and view revenue analytics.
+
+---
+
+## 🚀 Quick Start Guide
+
+You will need to run all three applications concurrently in development. Open three separate terminal windows:
+
+### Terminal 1: Start the Backend API
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-The API will run on `http://localhost:5000`.
+*Runs on `http://localhost:5000`*
 
-### 3. Start the Frontend (Customer Storefront)
-Open a new terminal and run:
+### Terminal 2: Start the Customer Storefront
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-The Storefront will run on `http://localhost:5173`.
+*Runs on `http://localhost:5173`*
 
-### 4. Start the Admin Dashboard
-Open a new terminal and run:
+### Terminal 3: Start the Admin Dashboard
 ```bash
 cd admin
 npm install
 npm run dev
 ```
-The Admin panel will run on the next available port (e.g. `http://localhost:5174`).
+*Runs on `http://localhost:5174` (or next available port)*
 
 ---
 
-## Production Deployment
-To deploy the entire stack using Docker Compose:
+## 🐳 Docker Deployment
+
+The repository includes a production-ready `docker-compose.yml` that will build and orchestrate the entire stack.
+
 ```bash
 docker compose up -d --build
 ```
-This will build and deploy the API container, and serve the Frontend and Admin built static files using Caddy.
+This will:
+- Spin up a local Redis container.
+- Build and run the Node.js API.
+- Build the Frontend and serve it via a high-performance Caddy web server (Port 80).
+- Build the Admin dashboard and serve it via Caddy (Port 8080).
+
+---
+
+## 🛠 Tech Stack Details
+
+- **Database**: MongoDB Atlas
+- **Caching/Rate Limiting**: Redis
+- **Backend Framework**: Express.js
+- **Validation**: Zod
+- **Authentication**: Argon2 hashing, JWT (JSON Web Tokens)
+- **Payment Gateway**: Razorpay
+- **Frontend Framework**: React 18 (via Vite)
+- **State Management**: Redux Toolkit (RTK)
+- **Styling**: Tailwind CSS v3
+- **UI Components**: Radix UI (Headless UI for accessibility)
+- **Routing**: React Router v6
